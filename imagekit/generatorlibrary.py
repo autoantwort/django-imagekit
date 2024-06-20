@@ -9,6 +9,7 @@ class Thumbnail(ImageSpec):
     def __init__(self, width=None, height=None, anchor=None, crop=None, upscale=None, format=default_thumbnail_format, **kwargs):
         self.processors = [ThumbnailProcessor(width, height, anchor=anchor,
                                               crop=crop, upscale=upscale)]
+        print("format:", format)
         super().__init__(**kwargs)
         self.format = format
 
