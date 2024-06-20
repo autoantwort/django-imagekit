@@ -132,6 +132,7 @@ class ImageSpec(BaseImageSpec):
         return state
 
     def get_hash(self):
+        print("Get hash, format:", self.format)
         return hashers.pickle([
             self.source.name,
             self.processors,
