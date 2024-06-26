@@ -99,6 +99,8 @@ class ThumbnailAssignmentNode(template.Node):
             # recursion errors when anchor is set to a SafeString instance.
             # This converts the SafeString into a str instance.
             kwargs['anchor'] = kwargs['anchor'][:]
+        if kwargs.get('format'):
+            kwargs['format'] = kwargs['format'][:]
         generator = generator_registry.get(generator_id, **kwargs)
 
         context[variable_name] = ImageCacheFile(generator)
@@ -133,6 +135,8 @@ class ThumbnailImageTagNode(template.Node):
             else:
                 srcset_scales = None
             kwargs.pop("srcset")
+        if kwargs.get('format'):
+            kwargs['format'] = kwargs['format'][:]
         generator = generator_registry.get(generator_id, **kwargs)
 
         file = ImageCacheFile(generator)
@@ -267,6 +271,7 @@ def thumbnail(parser, token):
     To use "srcset" (generating multiple thumbnails for different pixel densities) list the scale factors::
 
         {% thumbnail '100x100' mymodel.profile_image srcset='2 3' %}
+    kwargs "format", "anchor", and "crop".
 
     To use "smart cropping" (the ``SmartResize`` processor)::
 
