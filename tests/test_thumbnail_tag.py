@@ -87,3 +87,10 @@ def test_alternate_generator():
     clear_imagekit_cache()
     html = render_tag(ttag)
     assert html == '1'
+
+
+def test_alternate_format():
+    ttag = r"""{% thumbnail '100x' img format='webp' as th %}{{ th.url }}"""
+    clear_imagekit_cache()
+    html = render_tag(ttag)
+    assert html.endswith('webp')
