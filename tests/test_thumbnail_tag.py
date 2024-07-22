@@ -96,3 +96,10 @@ def test_srcset_arg():
     html = render_tag(ttag)
     srcset_regex = re.compile('srcset=".* 1x ,.* 1\\.5x ,.* 2.0x"')
     assert srcset_regex.search(html) is not None
+
+
+def test_alternate_format():
+    ttag = r"""{% thumbnail '100x' img format='webp' as th %}{{ th.url }}"""
+    clear_imagekit_cache()
+    html = render_tag(ttag)
+    assert html.endswith('webp')

@@ -99,6 +99,8 @@ class ThumbnailAssignmentNode(template.Node):
             # recursion errors when anchor is set to a SafeString instance.
             # This converts the SafeString into a str instance.
             kwargs['anchor'] = kwargs['anchor'][:]
+        if kwargs.get('format'):
+            kwargs['format'] = kwargs['format'][:]
         generator = generator_registry.get(generator_id, **kwargs)
 
         context[variable_name] = ImageCacheFile(generator)
@@ -133,6 +135,8 @@ class ThumbnailImageTagNode(template.Node):
             else:
                 srcset_scales = None
             kwargs.pop("srcset")
+        if kwargs.get('format'):
+            kwargs['format'] = kwargs['format'][:]
         generator = generator_registry.get(generator_id, **kwargs)
 
         file = ImageCacheFile(generator)
@@ -262,7 +266,7 @@ def thumbnail(parser, token):
 
     The thumbnail tag supports the "--" and "as" bits for adding html
     attributes and assigning to a variable, respectively. It also accepts the
-    kwargs "srcset", "anchor", and "crop".
+    kwargs "format", "srcset", "anchor", and "crop".
 
     To use "srcset" (generating multiple thumbnails for different pixel densities) list the scale factors::
 
